@@ -3,7 +3,7 @@ import chatMessage from "./modules/chatMessage.js";
 const socket = io();
 
 
-function setUserId(sID, message)
+function setUserId({sID, message})
 {
     //debugger;
     vm.socketID = sID;
