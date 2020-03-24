@@ -1,5 +1,5 @@
 // imports always go first - if we're importing anything
-import chatMessage from "./modules/chatMessage.js";
+import chatMessage from "./modules/ChatMessage.js";
 const socket = io();
 
 
