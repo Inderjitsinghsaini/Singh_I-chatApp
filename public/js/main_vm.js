@@ -20,6 +20,8 @@ function appendNewMessage(msg)
     //take the incoming message and push it into vue instance
     //
     vm.messages.push(msg);
+    
+    
 }
 
 //this is our new vue instance
