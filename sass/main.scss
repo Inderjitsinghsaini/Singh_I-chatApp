@@ -23,7 +23,9 @@ main {
 
 .messages { 
 	flex: 2;
-	background-color: #eee;
+	width:100%;
+	background: #000000 url(/images/chat_background.png)  round;
+    
 	border: 6px solid #e2e0e0; 
 }
 
