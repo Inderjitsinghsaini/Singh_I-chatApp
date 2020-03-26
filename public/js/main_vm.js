@@ -24,6 +24,7 @@ function appendNewMessage(msg)
     
 }
 
+
 //this is our new vue instance
 
 const vm = new Vue({
@@ -31,7 +32,8 @@ const vm = new Vue({
         socketID: "",
         messages:[],
         message: "",
-        nickName: ""
+        username: "",
+        state: 0
 
     },
 
@@ -46,14 +48,25 @@ const vm = new Vue({
 
             socket.emit('chat_message', {
                 content: this.message,
-                name: this.nickName || "anonymous"
+                name: this.username || "anonymous"
                 // || is called a double pipe operater an 'or' operator
                 //if this.nickName is set use it as the value
                 //or just make name anonymous
             })
             this.message= "";
+        },
+        setName: function() {
+        socket.emit('join', this.username);
+        this.myName = '';
+        this.state = 1;
+        },
+        joinAsGuest: function() {
+        socket.emit('join', null);
+        this.state = 1;
         }
+
     },
+    
     mounted: function() {
         console.log('mounted');
     }
