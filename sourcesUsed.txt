@@ -1,0 +1,8 @@
+Youtube video used
+
+https://www.youtube.com/watch?v=htzYhhjizkg
+
+
+Create your very own chat room using node.js, express.js, vue.js, and socket.io. This video builds on the base we built last video adding a simple application state system and usernames.
+
+Full source code: https://gist.github.com/rye761/935212e77ac633ef042089a5abac374e
