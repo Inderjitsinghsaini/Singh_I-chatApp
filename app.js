@@ -1,8 +1,8 @@
 var express = require('express');
 var app = express();
 
-// require the socket in the library
-const io = require('socket.io')(); // instantiate the library right away with the () method -> makes it run
+// Importing Socket.io library
+const io = require('socket.io')();
 
 const port = process.env.PORT || 3030;
 
@@ -17,30 +17,33 @@ const server = app.listen(port, () => {
     console.log(`app is running on port ${port}`);
 });
 
-// this is all of our socket.io messaging functionality
+//This all is for Socket.io messaging functionality
 
-// attach socket.io
+//attach socket.io
 io.attach(server);
 
 io.on('connection', function(socket) {
-    console.log('user connected');
-    socket.emit('connected', { sID: `${socket.id}`, message: 'new connection'});
-    
-    // listen for an incoming message from a user (socket refers to an individual user)
-    // msg is the incoming message from that user
-    socket.on('chat_message', function(msg) {
-        console.log(msg);
+    console.log("user is connected!");
+    socket.username = 'anonymous';
+    socket.emit('connected', {sID: `${socket.id}`, message: 'new connection'});
 
-        // when we get a new message, send it to everyone so they see it
-        // io is the switchboard operator that makes sure everyone who is connected gets the messages
-        io.emit('new_message', { id: socket.id, message: msg})
+    socket.on('chat_message', function(msg){
+        console.log(msg);
+        //when we get a message, we send it to everyone
+        io.emit('new_message', {id: socket.id, message: msg});
+    })
+
+    socket.on('join', function(username){
+        if(username != null){
+            socket.username = username
+        }
     })
 
     // listen for a disconnect event
-    socket.on('disconnect', function() {
-        console.log('a user disconnected');
+    socket.on('disconnect',function(){
+        console.log('a user is disconnected');
 
         message = `${socket.id} has left the chat!`;
         io.emit('user_disconnect', message);
     })
-})
+});
